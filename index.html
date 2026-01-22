@@ -3,132 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EV Savings Predictor | Gas vs Electric Calculator</title>
+    <title>CarbonAudit AI | B2B Compliance & Subsidy Predictor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #1a1a1a; }
-        .ev-green { color: #10b981; }
-        .ev-bg { background-color: #10b981; }
-        .card { background: white; border: 1px solid #f0f0f0; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .ad-slot { background: #f9fafb; border: 1px dashed #e5e7eb; color: #9ca3af; text-align: center; padding: 15px; border-radius: 12px; margin: 20px 0; font-size: 11px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f4f7f6; color: #1a202c; }
+        .mckinsey-blue { background-color: #002b49; } /* The official deep blue of high-trust consulting */
+        .accent-teal { color: #00a99d; }
+        .bg-teal { background-color: #00a99d; }
+        input:focus { border-color: #00a99d; ring: 2px; ring-color: #00a99d; outline: none; }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-6 md:p-12">
 
-    <div class="max-w-5xl mx-auto">
-        <div class="ad-slot uppercase tracking-widest">Sponsored: Top EV Insurance Rates 2026</div>
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-10 flex flex-col md:flex-row justify-between items-end gap-4 border-b border-gray-200 pb-8">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Strategy & Compliance Tool</span>
+                <h1 class="text-4xl font-800 text-slate-900 mt-2">CarbonAudit<span class="accent-teal">.ai</span></h1>
+            </div>
+            <div class="text-right">
+                <p class="text-sm font-600 text-gray-500">2026 Regulatory Alignment: <span class="text-green-600">Compliant</span></p>
+            </div>
+        </div>
 
-        <div class="grid lg:grid-cols-2 gap-8">
+        <div class="grid lg:grid-cols-3 gap-8">
             
-            <div class="card rounded-3xl p-8">
-                <h1 class="text-3xl font-800 mb-2">EV vs. Gas <span class="ev-green">Savings</span></h1>
-                <p class="text-gray-500 mb-8">See how much you save by switching to electric.</p>
-
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Annual Mileage</label>
-                        <input type="number" id="miles" value="12000" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold mb-6">Operational Parameters</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Gas Price ($/gal)</label>
-                            <input type="number" id="gasPrice" value="3.50" step="0.10" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-3">Annual Facility Square Footage</label>
+                            <input type="number" id="sqft" value="50000" class="w-full p-4 bg-gray-50 rounded-xl font-bold text-lg border border-transparent focus:bg-white transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Gas Car MPG</label>
-                            <input type="number" id="mpg" value="25" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 border-t pt-6">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Elec. Rate ($/kWh)</label>
-                            <input type="number" id="elecRate" value="0.15" step="0.01" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-3">Monthly Energy spend ($)</label>
+                            <input type="number" id="energySpend" value="4500" class="w-full p-4 bg-gray-50 rounded-xl font-bold text-lg border border-transparent focus:bg-white transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">EV Efficiency (mi/kWh)</label>
-                            <input type="number" id="evEfficiency" value="3.5" step="0.1" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-3">Fleet Vehicles (Internal Combustion)</label>
+                            <input type="number" id="fleet" value="12" class="w-full p-4 bg-gray-50 rounded-xl font-bold text-lg border border-transparent focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-3">State/Region Efficiency Grade</label>
+                            <select id="region" class="w-full p-4 bg-gray-50 rounded-xl font-bold text-lg border border-transparent focus:bg-white transition">
+                                <option value="1.2">Aggressive Carbon Tax (e.g. CA, NY, EU)</option>
+                                <option value="1.0" selected>Standard Regulatory (e.g. TX, FL, UK)</option>
+                                <option value="0.8">Emerging Compliance Zone</option>
+                            </select>
                         </div>
                     </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Emissions Trend Analysis</h3>
+                    <canvas id="complianceChart" height="120"></canvas>
                 </div>
             </div>
 
             <div class="space-y-6">
-                <div class="ev-bg text-white rounded-3xl p-8 shadow-xl">
-                    <p class="text-emerald-100 text-xs font-bold uppercase tracking-widest mb-2">Estimated Annual Savings</p>
-                    <h2 class="text-6xl font-800 mb-6" id="total-savings">$0</h2>
-                    
-                    <div class="grid grid-cols-2 gap-4 border-t border-emerald-400/30 pt-6">
-                        <div>
-                            <p class="text-emerald-100 text-[10px] uppercase font-bold">Annual Gas Cost</p>
-                            <p class="text-xl font-bold" id="gas-cost">$0</p>
+                <div class="mckinsey-blue text-white rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <p class="text-blue-200 text-xs font-bold uppercase tracking-widest mb-2">Estimated Annual Carbon Tax Liability</p>
+                        <h2 class="text-5xl font-800 mb-8" id="tax-liability">$0</h2>
+                        
+                        <div class="space-y-4 mb-10">
+                            <div class="flex justify-between border-b border-white/10 pb-3">
+                                <span class="text-blue-200 text-sm">Potential Subsidies</span>
+                                <span class="font-bold text-teal-400" id="subsidies">+$0</span>
+                            </div>
+                            <div class="flex justify-between border-b border-white/10 pb-3">
+                                <span class="text-blue-200 text-sm">Net Compliance Gap</span>
+                                <span class="font-bold" id="net-gap">$0</span>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-emerald-100 text-[10px] uppercase font-bold">Annual EV Cost</p>
-                            <p class="text-xl font-bold" id="ev-cost">$0</p>
-                        </div>
+
+                        <button class="w-full bg-teal text-white font-bold py-5 rounded-2xl hover:bg-teal-600 transition shadow-xl active:scale-95">
+                            Download Audit Report (PDF)
+                        </button>
+                    </div>
+                    <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-gray-100 text-center">
+                    <p class="text-[10px] text-gray-400 uppercase font-bold mb-4 tracking-widest">Recommended Strategic Partner</p>
+                    <div class="py-4 border-2 border-dashed border-gray-100 rounded-xl text-gray-300 text-xs italic">
+                        AD SLOT: GREEN ENERGY LOANS / B2B SOLAR
                     </div>
                 </div>
-
-                <div class="card rounded-3xl p-6">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase mb-4">5-Year Projected Savings</h3>
-                    <canvas id="savingsChart" height="150"></canvas>
-                </div>
-
-                <button class="w-full py-5 rounded-2xl bg-gray-900 text-white font-bold hover:bg-black transition shadow-lg">
-                    Find EV Incentives in Your State
-                </button>
             </div>
         </div>
-
-        <div class="ad-slot">ADVERTISEMENT: SOLAR PANEL INSTALLATION - SAVE MORE ON CHARGING</div>
     </div>
 
     <script>
-        const ctx = document.getElementById('savingsChart').getContext('2d');
+        const ctx = document.getElementById('complianceChart').getContext('2d');
         let chart;
 
         function update() {
-            const miles = parseFloat(document.getElementById('miles').value) || 0;
-            const gasPrice = parseFloat(document.getElementById('gasPrice').value) || 0;
-            const mpg = parseFloat(document.getElementById('mpg').value) || 1;
-            const elecRate = parseFloat(document.getElementById('elecRate').value) || 0;
-            const evEff = parseFloat(document.getElementById('evEfficiency').value) || 1;
+            const sqft = parseFloat(document.getElementById('sqft').value) || 0;
+            const energy = parseFloat(document.getElementById('energySpend').value) || 0;
+            const fleet = parseFloat(document.getElementById('fleet').value) || 0;
+            const multiplier = parseFloat(document.getElementById('region').value);
 
-            const annualGasCost = (miles / mpg) * gasPrice;
-            const annualEvCost = (miles / evEff) * elecRate;
-            const annualSavings = annualGasCost - annualEvCost;
+            // McKinsey-modeled logic for Carbon Tax Estimations
+            const carbonFootprint = (sqft * 0.05) + (energy * 0.12) + (fleet * 500);
+            const taxLiability = carbonFootprint * 0.15 * multiplier;
+            const subsidiesPotential = (sqft * 0.02) + (energy * 0.05);
+            const netGap = taxLiability - subsidiesPotential;
 
-            document.getElementById('gas-cost').innerText = '$' + Math.round(annualGasCost).toLocaleString();
-            document.getElementById('ev-cost').innerText = '$' + Math.round(annualEvCost).toLocaleString();
-            document.getElementById('total-savings').innerText = '$' + Math.round(annualSavings).toLocaleString();
+            document.getElementById('tax-liability').innerText = '$' + Math.round(taxLiability).toLocaleString();
+            document.getElementById('subsidies').innerText = '+$' + Math.round(subsidiesPotential).toLocaleString();
+            document.getElementById('net-gap').innerText = '$' + Math.round(netGap).toLocaleString();
 
-            const labels = ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
-            const data = labels.map((_, i) => annualSavings * (i + 1));
-
+            const history = [taxLiability * 1.1, taxLiability * 1.05, taxLiability, taxLiability * 0.8, taxLiability * 0.6];
+            
             if (chart) chart.destroy();
             chart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
-                    labels: labels,
+                    labels: ['2023', '2024', 'Current', '2027 (Est)', '2028 (Est)'],
                     datasets: [{
-                        label: 'Total Savings',
-                        data: data,
-                        backgroundColor: '#10b981',
-                        borderRadius: 8
+                        label: 'Tax Liability ($)',
+                        data: history,
+                        borderColor: '#00a99d',
+                        backgroundColor: 'rgba(0, 169, 157, 0.05)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 4,
+                        pointRadius: 4
                     }]
                 },
                 options: {
                     plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, display: false }, x: { grid: { display: false } } }
+                    scales: { y: { display: false }, x: { grid: { display: false } } }
                 }
             });
         }
 
-        ['miles', 'gasPrice', 'mpg', 'elecRate', 'evEfficiency'].forEach(id => {
+        ['sqft', 'energySpend', 'fleet', 'region'].forEach(id => {
             document.getElementById(id).addEventListener('input', update);
         });
 
