@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Savings Predictor | Gas vs Electric Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #1a1a1a; }
+        .ev-green { color: #10b981; }
+        .ev-bg { background-color: #10b981; }
+        .card { background: white; border: 1px solid #f0f0f0; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .ad-slot { background: #f9fafb; border: 1px dashed #e5e7eb; color: #9ca3af; text-align: center; padding: 15px; border-radius: 12px; margin: 20px 0; font-size: 11px; }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-5xl mx-auto">
+        <div class="ad-slot uppercase tracking-widest">Sponsored: Top EV Insurance Rates 2026</div>
+
+        <div class="grid lg:grid-cols-2 gap-8">
+            
+            <div class="card rounded-3xl p-8">
+                <h1 class="text-3xl font-800 mb-2">EV vs. Gas <span class="ev-green">Savings</span></h1>
+                <p class="text-gray-500 mb-8">See how much you save by switching to electric.</p>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Annual Mileage</label>
+                        <input type="number" id="miles" value="12000" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Gas Price ($/gal)</label>
+                            <input type="number" id="gasPrice" value="3.50" step="0.10" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Gas Car MPG</label>
+                            <input type="number" id="mpg" value="25" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 border-t pt-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Elec. Rate ($/kWh)</label>
+                            <input type="number" id="elecRate" value="0.15" step="0.01" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">EV Efficiency (mi/kWh)</label>
+                            <input type="number" id="evEfficiency" value="3.5" step="0.1" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl font-bold outline-none focus:border-emerald-500 transition">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="ev-bg text-white rounded-3xl p-8 shadow-xl">
+                    <p class="text-emerald-100 text-xs font-bold uppercase tracking-widest mb-2">Estimated Annual Savings</p>
+                    <h2 class="text-6xl font-800 mb-6" id="total-savings">$0</h2>
+                    
+                    <div class="grid grid-cols-2 gap-4 border-t border-emerald-400/30 pt-6">
+                        <div>
+                            <p class="text-emerald-100 text-[10px] uppercase font-bold">Annual Gas Cost</p>
+                            <p class="text-xl font-bold" id="gas-cost">$0</p>
+                        </div>
+                        <div>
+                            <p class="text-emerald-100 text-[10px] uppercase font-bold">Annual EV Cost</p>
+                            <p class="text-xl font-bold" id="ev-cost">$0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card rounded-3xl p-6">
+                    <h3 class="text-sm font-bold text-gray-400 uppercase mb-4">5-Year Projected Savings</h3>
+                    <canvas id="savingsChart" height="150"></canvas>
+                </div>
+
+                <button class="w-full py-5 rounded-2xl bg-gray-900 text-white font-bold hover:bg-black transition shadow-lg">
+                    Find EV Incentives in Your State
+                </button>
+            </div>
+        </div>
+
+        <div class="ad-slot">ADVERTISEMENT: SOLAR PANEL INSTALLATION - SAVE MORE ON CHARGING</div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('savingsChart').getContext('2d');
+        let chart;
+
+        function update() {
+            const miles = parseFloat(document.getElementById('miles').value) || 0;
+            const gasPrice = parseFloat(document.getElementById('gasPrice').value) || 0;
+            const mpg = parseFloat(document.getElementById('mpg').value) || 1;
+            const elecRate = parseFloat(document.getElementById('elecRate').value) || 0;
+            const evEff = parseFloat(document.getElementById('evEfficiency').value) || 1;
+
+            const annualGasCost = (miles / mpg) * gasPrice;
+            const annualEvCost = (miles / evEff) * elecRate;
+            const annualSavings = annualGasCost - annualEvCost;
+
+            document.getElementById('gas-cost').innerText = '$' + Math.round(annualGasCost).toLocaleString();
+            document.getElementById('ev-cost').innerText = '$' + Math.round(annualEvCost).toLocaleString();
+            document.getElementById('total-savings').innerText = '$' + Math.round(annualSavings).toLocaleString();
+
+            const labels = ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
+            const data = labels.map((_, i) => annualSavings * (i + 1));
+
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Savings',
+                        data: data,
+                        backgroundColor: '#10b981',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, display: false }, x: { grid: { display: false } } }
+                }
+            });
+        }
+
+        ['miles', 'gasPrice', 'mpg', 'elecRate', 'evEfficiency'].forEach(id => {
+            document.getElementById(id).addEventListener('input', update);
+        });
+
+        update();
+    </script>
+</body>
+</html>
